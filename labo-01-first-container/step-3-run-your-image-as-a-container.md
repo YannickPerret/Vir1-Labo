@@ -6,6 +6,9 @@
 
 * [ ] Run your "petclinic" docker based on the image created in the previous step.
   * [ ] We should access to your application using the http standard port.
+```bash
+docker run -d -p 80:8080 --name petclinic java-spring:dev
+```
 
 Result expected:
 
@@ -25,28 +28,28 @@ curl --request GET ^
 //disregard the message curl: (6) Could not resolve host: application
 ```
 
-* [ ] List all Dockers currently running on your local environment. Observe the port forwarding for your "petclinic" docker.
+* [x] List all Dockers currently running on your local environment. Observe the port forwarding for your "petclinic" docker.
 
 ```
 [INPUT]
-//TODO
+docker ps
 
 [OUTPUT]
-//TODO
-
+CONTAINER ID   IMAGE             COMMAND                  CREATED         STATUS         PORTS                  NAMES
+35bfdf5f034fe   java-spring:dev   "./mvnw spring-boot:…"   12 minutes ago   Up 2 minutes   0.0.0.0:80->8080/tcp   petclinic
 ```
 
 * [ ] Stop your "petclinic" docker
 
 ```
 [INPUT]
-//TODO
+docker stop petclinic
 
 [OUTPUT]
-//TODO
+petclinic
 ```
 
-* [ ] Rename your docker as "petclinic-app"
+* [x] Rename your docker as "petclinic-app"
 
 <!---->
 
