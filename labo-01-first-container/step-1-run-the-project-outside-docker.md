@@ -14,9 +14,12 @@ git clone https://github.com/spring-projects/spring-petclinic.git
 
 <!---->
 
-* [ ] What type of application is it?
-* [ ] Which database engine is used?
-* [ ] Do we need to install the package manager _MAVEN_ before building the project?
+* [x] What type of application is it ?
+    Spring Boot
+* [x] Which database engine is used ?
+    h2
+* [x] Do we need to install the package manager _MAVEN_ before building the project ?
+    no
 
 <!---->
 
@@ -24,39 +27,43 @@ git clone https://github.com/spring-projects/spring-petclinic.git
 
 <!---->
 
-* [ ] Which version of Java should be compatible with the code provided?
+* [x] Which version of Java should compatible with the code provided ?
+    Java 17 or newer
 
 ## Setup Java components
 
 ### Check your current Java installation
 
-* [ ] Where is Java installed?
+* [x] Where is java installed ?
 
 ```
 [INPUT]
-//TODO
+which java
 
 [OUTPUT]
-//TODO
+/c/Program Files (x86)/Common Files/Oracle/Java/javapath/java
 ```
 
-* [ ] Which current compiler is installed (JDK)?
-
-<pre><code><strong>[INPUT]
-</strong>//TODO
-
-[OUTPUT]
-//TODO
-</code></pre>
-
-* [ ] Which current runtime is installed (JRE)?
+* [x] Which current compiler is installed (JDK) ?
 
 ```
 [INPUT]
-//TODO
+javac -version
 
 [OUTPUT]
-//TODO
+javac 20.0.1upstream/main
+```
+
+* [x] Which current runtime is installed (JRE) ?
+
+```
+[INPUT]
+java -version
+
+[OUTPUT]
+java version "20.0.1" 2023-04-18
+Java(TM) SE Runtime Environment (build 20.0.1+9-29)
+Java HotSpot(TM) 64-Bit Server VM (build 20.0.1+9-29, mixed mode, sharing)
 ```
 
 * [ ] Do we need to install the Java virtual machine (JVM)?
@@ -76,10 +83,13 @@ git clone https://github.com/spring-projects/spring-petclinic.git
 
 ```powershell
 [INPUT]
-//TODO
+curl https://download.java.net/java/GA/jdk20.0.1/b4887098932d415489976708ad6d1a4b/9/GPL/openjdk-20.0.1_windows-x64_bin.zip -O openjdk-20.0.1_windows-x64_bin.zip
 
 [OUTPUT]
-//TODO
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  187M  100  187M    0     0  3678k      0  0:00:52  0:00:52 --:--:-- 3740k
+curl: (6) Could not resolve host: openjdk-20.0.1_windows-x64_bin.zip
 ```
 
 #### Check the archive integrity before installing the JDK
@@ -90,30 +100,33 @@ git clone https://github.com/spring-projects/spring-petclinic.git
 
 ```powershell
 [INPUT]
-//TODO
+CertUtil -hashfile openjdk-20.0.1_windows-x64_bin.zip SHA256
 
 [OUTPUT]
-//TODO
+31ca4a8cbdea1da7fb441194e756dd1adbedfc05bd1135a1ecc46b4288ea8942
 ```
 
 #### Unzip jdk archive
 
 ```
 [INPUT]
-//TODO
+unzip openjdk-20.0.1_windows-x64_bin.zip
 
 [OUTPUT]
-//TODO
+Archive:  openjdk-20.0.1_windows-x64_bin.zip
+   creating: jdk-20.0.1/
+   creating: jdk-20.0.1/bin/
+   ...
 ```
 
 #### Move the unzip folder to Programs Folder
 
 ```
 [INPUT]
-//TODO
+mv jdk-20.0.1\ "C:\Program Files\Java"
 
 [OUTPUT]
-//TODO
+
 ```
 
 #### Set environment variables
@@ -122,17 +135,17 @@ git clone https://github.com/spring-projects/spring-petclinic.git
 
 <!---->
 
-* [ ] Set JAVA\_HOME variable
+* [x] Set JAVA\_HOME variable
 
 ```
 [INPUT]
-//TODO
+setx /m JAVA_HOME "C:\Program Files\Java\jdk-20.0.1\"
 
 [OUTPUT]
-//TODO
+RÉUSSITE : la valeur spécifiée a été enregistrée.
 ```
 
-* [ ] Update PATH environment variable
+* [x] Update PATH environment variable
 
 {% hint style="info" %}
 Back up your current path before updating it.
@@ -142,36 +155,55 @@ echo %PATH% > path.back
 
 ```
 [INPUT]
-//TODO
+Ajouter dans le path via l'interface windows
+%JAVA_HOME%\bin
 
 [OUTPUT]
-//TODO
-
 ```
 
-* [ ] Check the variables
+* [x] Check the variables settings
 
 ```
 [INPUT]
-//TODO
+java -version
 
 [OUTPUT]
-//TODO
-
+java version "20.0.1" 2023-04-18
+Java(TM) SE Runtime Environment (build 20.0.1+9-29)
+Java HotSpot(TM) 64-Bit Server VM (build 20.0.1+9-29, mixed mode, sharing)
 ```
 
 ## Build and test the project
 
 ```
 [INPUT]
-//TODO
+.\mvnw.cmd spring-boot:run
 
 [OUTPUT]
-//TODO
+
+[INFO] Attaching agents: []
+
+
+              |\      _,,,--,,_
+             /,`.-'`'   ._  \-;;,_
+  _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
+ |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+ |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
+ |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
+ |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
+ |   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )
+ |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
+ ==================================================================/_/_/_/
+
+:: Built with Spring Boot :: 3.0.4
 ```
 
 ### Result expected 
 
-<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+```
+[INPUT]
+curl --request GET --url http://localhost:8080/actuator/health --header 'content-type: application/json'
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+[OUTPUT]
+{"status":"UP"}
+```

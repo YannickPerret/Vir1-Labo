@@ -4,15 +4,15 @@
 
 ## Create your docker file
 
-* [ ] Change the directory to the app directory (we will use the same project [as for the previous step](step-1-run-the-project-outside-docker.md)).
-* [ ] Create an empty file named "Dockerfile"
+* [x] Change the directory to the app directory (we will use the same project [as for the previous step](step-1-run-the-project-outside-docker.md)).
+* [x] Create an empty file named "Dockerfile"
 
 ```
 [INPUT]
-//TODO
+touch Dockerfile
 
 [OUTPUT]
-//TODO
+
 ```
 
 * Using your IDE, add the following contents to the Dockerfile:
@@ -23,59 +23,59 @@
 FROM eclipse-temurin:17-jdk-jammy
 ```
 
-* [ ] What is the purpose of the directive starting with "# syntax=docker..."
+* [x] What is the purpose of the directive starting with "# synthax=docker..."
 
 <!---->
 
 * [Official documentation - Syntax directive](https://docs.docker.com/build/dockerfile/frontend/)
 
 ```
-//TODO
+Elle indique à Docker l'image de base qu'on souhaite utiliser pour notre application
 ```
 
-* [ ] Is the docker image suitable for a production environment?
+* [x] Is the docker image suitable for a production environment?
 
 ```
-//TODO
+Non, elle ne lance pas encore notre application
 ```
 
 ### Dependencies resolution and first app build
 
-* [ ] Set the image's working directory by adding this command line:
+* [x] Set the image's working directory by adding this command line:
 
 ```
 WORKDIR /app
 ```
 
-* [ ] Before we can resolve dependencies with _MAVEN,_ we need to get the _MAVEN_ wrapper and your pom.xml file into your image.
+* [x] Before we can resolve dependencies with _MAVEN,_ we need to get the _MAVEN_ wrapper and your pom.xml file into your image.
 
 ```
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
 ```
 
-* [ ] Let's use _MAVEN_ to resolve the dependencies.
+* [x] Let's use _MAVEN_ to resolve the dependencies.
 
 ```
 RUN ./mvnw dependency:resolve
 ```
 
-* [ ] How is it possible to resolve the dependencies when the source code is not available at this point in the process?
+* [x] How is it possible to resolve the dependencies when the source code is not available at this point in the process?
 
 ```
-//TODO
+Les dépendances sont lister dans le fichier pom.xml
 ```
 
 * Add the command able to provide (copy) your source code to the image.
 
 ```
-//TODO
+COPY src ./src
 ```
 
 * Add the command responsible to run your application inside the Docker.
 
 ```
-//TODO
+CMD ["./mvnw", "spring-boot:run"]
 ```
 
 ## Create a .dockerignore file
@@ -86,8 +86,8 @@ RUN ./mvnw dependency:resolve
 To meet the good practice provided by Docker, we have to reduce the amount of data in the Docker build context. For this first lab, we will simply remove the directory containing the eventual outputs of MAVEN.
 {% endhint %}
 
-* [ ] Create a .dockerignore file in the same directory as the Dockerfile.
-* [ ] Add the folder containing the MAVEN output.
+* [x] Create a .dockerignore file in the same directory as the Dockerfile.
+* [x] Add the folder containing the MAVEN output.
 
 ## Build an image
 
@@ -97,13 +97,13 @@ Read carefully [this doc](https://docs.docker.com/develop/dev-best-practices/) a
 This [doc may also help you with tag samples](https://docs.docker.com/engine/reference/commandline/tag/).
 {% endhint %}
 
-* [ ] Find the best tag for your image (this image is not intended for publication.)
+* [x] Find the best tag for your image (this image is not intended for publication.)
 
 ```
-//TODO
+java-spring:dev
 ```
 
-* [ ] Build your first Docker image
+* [x] Build your first Docker image
 
 Result Expected:
 
@@ -141,15 +141,44 @@ ble check and reset permissions for sensitive files and directories.
 
 ```
 [INPUT]
-//TODO
+docker build --tag java-spring:dev .\
 
 [OUTPUT]
-//TODO
+[+] Building 331.6s (11/11) FINISHED                                                                                                                                                                                                          
+ => [internal] load build definition from Dockerfile                                                                                                                                                                                     0.0s 
+ => => transferring dockerfile: 238B                                                                                                                                                                                                     0.0s 
+ => [internal] load .dockerignore                                                                                                                                                                                                        0.0s 
+ => => transferring context: 47B                                                                                                                                                                                                         0.0s 
+ => [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk-jammy                                                                                                                                                          1.9s 
+ => [1/6] FROM docker.io/library/eclipse-temurin:17-jdk-jammy@sha256:13ff0fa4f9232f69b9f6e8a4cf86b7cb3a3783dbee06818aa5aee447159c1bc3                                                                                                   65.6s 
+ => => resolve docker.io/library/eclipse-temurin:17-jdk-jammy@sha256:13ff0fa4f9232f69b9f6e8a4cf86b7cb3a3783dbee06818aa5aee447159c1bc3                                                                                                    0.0s 
+ => => sha256:c24bf4c725c221ddbb66e056716cf961f79001fedf2e8a0cddab347244398bac 192.59MB / 192.59MB                                                                                                                                      64.0s 
+ => => sha256:13ff0fa4f9232f69b9f6e8a4cf86b7cb3a3783dbee06818aa5aee447159c1bc3 1.21kB / 1.21kB                                                                                                                                           0.0s 
+ => => sha256:9dd6a19e4819b066aa2bd8e54d5988a49cca29736fe5447cb0a57daa975f8935 1.16kB / 1.16kB                                                                                                                                           0.0s 
+ => => sha256:56c7bc12ee6d61d5e12e1fe0bd6ae1ebc31acd94b3c4fbbf65efe17fff910a29 6.31kB / 6.31kB                                                                                                                                           0.0s 
+ => => sha256:1bc677758ad7fa4503417ae5be18809c5a8679b5b36fcd1464d5a8e41cb13305 30.43MB / 30.43MB                                                                                                                                        19.9s 
+ => => sha256:0d0e0ecb256ae3e8b7625494ed35189f845766552b7159a17f634706e28a9687 17.05MB / 17.05MB                                                                                                                                        15.1s 
+ => => sha256:4fb255c76461d67abc91f408697fa9ebae85009a5d6d94a905e52946bab9baa0 176B / 176B                                                                                                                                              15.3s 
+ => => extracting sha256:1bc677758ad7fa4503417ae5be18809c5a8679b5b36fcd1464d5a8e41cb13305                                                                                                                                                0.5s 
+ => => extracting sha256:0d0e0ecb256ae3e8b7625494ed35189f845766552b7159a17f634706e28a9687                                                                                                                                                0.4s 
+ => => extracting sha256:c24bf4c725c221ddbb66e056716cf961f79001fedf2e8a0cddab347244398bac                                                                                                                                                1.4s 
+ => => extracting sha256:4fb255c76461d67abc91f408697fa9ebae85009a5d6d94a905e52946bab9baa0                                                                                                                                                0.0s 
+ => [internal] load build context                                                                                                                                                                                                        0.0s 
+ => => transferring context: 1.25MB                                                                                                                                                                                                      0.0s 
+ => [2/6] WORKDIR /app                                                                                                                                                                                                                   0.3s 
+ => [3/6] COPY .mvn/ .mvn                                                                                                                                                                                                                0.0s 
+ => [4/6] COPY mvnw pom.xml ./                                                                                                                                                                                                           0.0s 
+ => [5/6] RUN ./mvnw dependency:resolve                                                                                                                                                                                                263.0s 
+ => [6/6] COPY src ./src                                                                                                                                                                                                                 0.0s 
+ => exporting to image                                                                                                                                                                                                                   0.7s 
+ => => exporting layers                                                                                                                                                                                                                  0.7s 
+ => => writing image sha256:5826c003b44c53f42c165e3d434953d68e7aff6d20eed5e54ddd3af3a8a1c7dc                                                                                                                                             0.0s 
+ => => naming to docker.io/library/java-spring                                                                                                                                                                                           0.0s 
 ```
 
-## View local images
+### View local images
 
-* [ ] Using the "docker images" command, observe your images, and the associated tag.
+* [x] Using the "docker images" command, observe your images, and the associates tag.
 
 ### Result expected:
 
@@ -162,10 +191,11 @@ eclipse-temurin   17-jdk-jammy   56c7bc12ee6d   3 days ago       456MB
 
 ```
 [INPUT]
-//TODO
+docker images
 
 [OUTPUT]
-//TODO
+REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+java-spring   dev    5826c003b44c   2 minutes ago   606MB
 ```
 
 ## Using tags
