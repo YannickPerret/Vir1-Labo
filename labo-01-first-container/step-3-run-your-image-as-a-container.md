@@ -57,7 +57,7 @@ petclinic
 
 ```
 [INPUT]
-//TODO
+docker rename petclinic petclinic-app
 
 [OUTPUT]
 //TODO
@@ -67,13 +67,13 @@ petclinic
 
 ```
 [INPUT]
-//TODO
+docker restart petclinic-app
 
 [OUTPUT]
 //TODO
 ```
 
-* [ ] Display all running dockers with this output format
+* [x] Display all running dockers with this output format
 
 <!---->
 
@@ -91,6 +91,6 @@ eclipse-petclinic:version1.0.dev   0.0.0.0:80->8080/tcp.   petclinic-server
 //TODO
 
 [OUTPUT]
-//TODO
+java-spring:dev   0.0.0.0:80->8080/tcp   petclinic-app
 ```
 
