@@ -16,29 +16,30 @@ Let's create both volumes, one for the data, and another one for the db config.
 
 ```
 [INPUT]
-//TODO
+docker volume create mysql_data
 
 [OUTPUT]
-mysql_data
+//TODO
 ```
 
-* [] Create a second volume for the MySQL configuration (tag name : mysql_config)
+* [ ] Create a second volume for the MySQL configuration (tag name : mysql_config)
 
 ```
 [INPUT]
-//TODO
+//TODO create mysql_config
 
 [OUTPUT]
-mysql_config
+//TODO
 ```
 
-* [] List the volumes
+* [ ] List the volumes
 
 ```
 [INPUT]
-//TODO
+//TOOD  
 
 [OUTPUT]
+//Expected result
 DRIVER    VOLUME NAME
 local     mysql_config
 local     mysql_data
@@ -48,23 +49,24 @@ local     mysql_data
 
 Let's create a user-defined bridge network enabling our application and our database to talk to each other.
 
-* [] Create the network
+* [ ] Create the network
 
 ```
 [INPUT]
-//TODO
+//TODO create mysqlnet
 
 [OUTPUT]
 //TODO
 ```
 
-* [] List the networks
+* [ ] List the networks
 
 ```
 [INPUT]
-docker network ls
+//TODO list docker network
 
 [OUTPUT]
+//TODO Expected result
 NETWORK ID     NAME       DRIVER    SCOPE
 805d02ebf9f0   bridge     bridge    local
 f3b0c7151a6f   host       host      local
@@ -86,13 +88,7 @@ Check your host ports and do no try to forward one of them that is already is us
 
 ```
 [INPUT]
-docker run -it --rm -d -v mysql_data:/var/lib/mysql ^
-    -v mysql_config:/etc/mysql/conf.d ^
-    --network mysqlnet ^
-    --name mysqlserver ^
-    -e MYSQL_USER=petclinic -e MYSQL_PASSWORD=petclinic ^
-    -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=petclinic ^
-    -p 3316:3306 mysql:8.0
+//TODO Run docker
 
 [OUTPUT]
 Unable to find image 'mysql:8.0' locally
@@ -112,14 +108,14 @@ a11a06843fd5: Waiting
 2b7afc93c37d715c6d592de78173386903e123d0c7065ac34329ab81e9fcefd8
 ```
 
-* [] List all containers (all states)
+* [ ] List all containers (all states)
 
 ```
 [INPUT]
 //TODO
 
 [OUTPUT]
-//Result expected
+//TODO Result expected
 IMAGE                              PORTS.                               NAMES
 mysql:8.0                          33060/tcp, 0.0.0.0:3316->3306/tcp.   mysqlserver
 eclipse-petclinic:version1.0.dev   0.0.0.0:80->8080/tcp.                petclinic-server
@@ -129,23 +125,19 @@ eclipse-petclinic:version1.0.dev   0.0.0.0:80->8080/tcp.                petclini
 
 Currently H2 is used on our Petclinic Container. We need to switch on MySQL.
 
-* [] Add this command to your Dockerfile, in the right place.
+* [ ] Add this command to your Dockerfile, in the right place.
 
 ```
 CMD ["./mvnw", "spring-boot:run", "-Dspring-boot.run.profiles=mysql"]
 ```
 
-* [] If you run both docker, the application server will not able to talk with the dbserver... any idea why ?
+* [ ] If you run both docker, the application server will not able to talk with the dbserver... any idea why ?
 
 ```
-//TODO - Explaination
+//TODO
 ```
 
-```
-//TODO - Config update
-```
-
-* [] Let's build our image
+* [ ] Let's build our image
 
 ```
 [INPUT]
@@ -161,12 +153,12 @@ eclipse-temurin     17-jdk-jammy     56c7bc12ee6d   13 days ago     456MB
 mysql               8.0              8189e588b0e8   4 weeks ago     564MB
 ```
 
-* [] Test your application
+* [ ] Test your application
 
 ```
 [INPUT]
-//Start your docker
-docker start-petclinic
+//TODO Start your docker
+
 
 [INPUT]
 //Call the vets route
@@ -177,5 +169,3 @@ curl --request GET ^
 [OUTPUT]
 //Result Expected
 ```
-
-* [] Result expected
