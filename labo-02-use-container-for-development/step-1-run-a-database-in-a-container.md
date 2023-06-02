@@ -12,37 +12,38 @@ Take the time to become familiar with the concept of volumes before carrying out
 
 Let's create both volumes, one for the data, and another one for the db config.
 
-* [ ] Create one volume for the MySQL data (tag name : mysql_data)
+* [x] Create one volume for the MySQL data (tag name : mysql_data)
 
 ```
 [INPUT]
 docker volume create mysql_data
 
 [OUTPUT]
-//TODO
+mysql_data
 ```
 
-* [ ] Create a second volume for the MySQL configuration (tag name : mysql_config)
-
-```
-[INPUT]
-//TODO create mysql_config
-
-[OUTPUT]
-//TODO
-```
-
-* [ ] List the volumes
+* [x] Create a second volume for the MySQL configuration (tag name : mysql_config)
 
 ```
 [INPUT]
-//TOOD  
+docker volume create mysql_config
 
 [OUTPUT]
-//Expected result
+mysql_config
+```
+
+* [x] List the volumes
+
+```
+[INPUT]
+docker volume ls
+
+[OUTPUT]
 DRIVER    VOLUME NAME
 local     mysql_config
 local     mysql_data
+local     volume-ria1-shopping
+local     vsCodeServerVolume-ria1-shopping-app
 ```
 
 ### Network Creation
@@ -53,25 +54,24 @@ Let's create a user-defined bridge network enabling our application and our data
 
 ```
 [INPUT]
-//TODO create mysqlnet
+docker network create mysqlnet
 
 [OUTPUT]
-//TODO
+17332d080d53245289f6ebbe243aff8ec071dba7dece58338575b3d340b944bb
 ```
 
-* [ ] List the networks
+* [x] List the networks
 
 ```
 [INPUT]
-//TODO list docker network
+docker network ls
 
 [OUTPUT]
-//TODO Expected result
 NETWORK ID     NAME       DRIVER    SCOPE
-805d02ebf9f0   bridge     bridge    local
-f3b0c7151a6f   host       host      local
-b952e34b3da7   mysqlnet   bridge    local
-5884ab7981ab   none       null      local
+93d366eebb0d   bridge     bridge    local
+68b18fa5cf2f   host       host      local
+17332d080d53   mysqlnet   bridge    local
+343084e056ed   none       null      local
 ```
 
 ### Run MySQL
@@ -88,6 +88,11 @@ Check your host ports and do no try to forward one of them that is already is us
 
 ```
 [INPUT]
+docker run -it --rm -d -v mysql_data:/var/lib/mysql -v mysql_config:/etc/mysql/conf.d --network mysqlnet --name mysqlserver -e MYSQL_USER=petclinic -e MYSQL_PASSWORD=petclinic -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=petclinic -p 3306:3306 mysql:8.0
+
+docker build --tag java-spring:dev .\
+
+docker run --rm -d --name springboot-server --network mysqlnet -e MYSQL_URL=jdbc:mysql://mysqlserver/petclinic -p 8080:8080 java-spring:dev
 //TODO Run docker
 
 [OUTPUT]
