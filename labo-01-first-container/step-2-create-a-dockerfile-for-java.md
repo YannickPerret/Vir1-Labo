@@ -195,7 +195,7 @@ docker images
 
 [OUTPUT]
 REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
-java-spring   dev    5826c003b44c   2 minutes ago   606MB
+java-spring   dev       3110431b2f4a   45 seconds ago   607MB
 ```
 
 ## Using tags

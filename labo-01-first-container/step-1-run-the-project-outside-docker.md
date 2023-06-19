@@ -195,7 +195,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 20.0.1+9-29, mixed mode, sharing)
  |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
  ==================================================================/_/_/_/
 
-:: Built with Spring Boot :: 3.0.4
+:: Built with Spring Boot :: 3.0.6
 ```
 
 ### Result expected 

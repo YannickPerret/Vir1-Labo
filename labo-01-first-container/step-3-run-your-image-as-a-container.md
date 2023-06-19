@@ -70,7 +70,7 @@ docker rename petclinic petclinic-app
 docker restart petclinic-app
 
 [OUTPUT]
-//TODO
+petclinic-app
 ```
 
 * [x] Display all running dockers with this output format

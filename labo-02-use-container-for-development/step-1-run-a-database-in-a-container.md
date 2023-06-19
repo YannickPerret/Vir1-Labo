@@ -93,7 +93,7 @@ docker run -it --rm -d -v mysql_data:/var/lib/mysql -v mysql_config:/etc/mysql/c
 docker build --tag java-spring:dev .\
 
 docker run --rm -d --name springboot-server --network mysqlnet -e MYSQL_URL=jdbc:mysql://mysqlserver/petclinic -p 8080:8080 java-spring:dev
-//TODO Run docker
+
 
 [OUTPUT]
 Unable to find image 'mysql:8.0' locally
@@ -117,29 +117,33 @@ a11a06843fd5: Waiting
 
 ```
 [INPUT]
-//TODO
+docker container ls
 
 [OUTPUT]
-//TODO Result expected
-IMAGE                              PORTS.                               NAMES
-mysql:8.0                          33060/tcp, 0.0.0.0:3316->3306/tcp.   mysqlserver
-eclipse-petclinic:version1.0.dev   0.0.0.0:80->8080/tcp.                petclinic-server
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS                               NAMES
+902a4aecfbd2   mysql:8.0      "docker-entrypoint.s…"   10 minutes ago   Up 10 minutes   0.0.0.0:3306->3306/tcp, 33060/tcp   mysqlserver
+054013d9e68b   3110431b2f4a   "./mvnw spring-boot:…"   21 minutes ago   Up 21 minutes   0.0.0.0:80->8080/tcp                petclinic
 ```
 
 ### Update our Dockerfile to activate MySQL
 
 Currently H2 is used on our Petclinic Container. We need to switch on MySQL.
 
-* [ ] Add this command to your Dockerfile, in the right place.
+* [x] Add this command to your Dockerfile, in the right place.
 
 ```
 CMD ["./mvnw", "spring-boot:run", "-Dspring-boot.run.profiles=mysql"]
+
+
+docker run -d -p 80:8080 --name petclinic java-spring:dev
+
+
 ```
 
 * [ ] If you run both docker, the application server will not able to talk with the dbserver... any idea why ?
 
 ```
-//TODO
+docker: Error response from daemon: Conflict. The container name "/petclinic" is already in use by container "054013d9e68b691e7635a14fc648b1547a41fa4bc1c800e158fa04d6c3847cd0". You have to remove (or rename) that container to be able to reuse that name.
 ```
 
 * [ ] Let's build our image
@@ -162,15 +166,16 @@ mysql               8.0              8189e588b0e8   4 weeks ago     564MB
 
 ```
 [INPUT]
-//TODO Start your docker
+docker run --rm -d --name springboot-server --network mysqlnet -e MYSQL_URL=jdbc:mysql://mysqlserver/petclinic -p 80:8080 eclipse-petclinic:version1.1.dev
+
 
 
 [INPUT]
-//Call the vets route
 curl --request GET ^
     --url http://localhost/vets ^
     --header 'content-type: application/json'
 
 [OUTPUT]
-//Result Expected
+{"vetList":[{"id":1,"firstName":"James","lastName":"Carter","specialties":[],"nrOfSpecialties":0,"new":false},{"id":2,"firstName":"Helen","lastName":"Leary","specialties":[{"id":1,"name":"radiology","new":false}],"nrOfSpecialties":1,"new":false},{"id":3,"firstName":"Linda","lastName":"Douglas","specialties":[{"id":3,"name":"dentistry","new":false},{"id":2,"name":"surgery","new":false}],"nrOfSpecialties":2,"new":false},{"id":4,"firstName":"Rafael","lastName":"Ortega","specialties":[{"id":2,"name":"surgery","new":false}],"nrOfSpecialties":1,"new":false},{"id":5,"firstName":"Henry","lastName":"Stevens","specialties":[{"id":1,"name":"radiology","new":false}],"nrOfSpecialties":1,"new":false},{"id":6,"firstName":"Sharon","lastName":"Jenkins","specialties":[],"nrOfSpecialties":0,"new":false}]}
+
 ```
